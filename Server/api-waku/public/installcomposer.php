@@ -1,6 +1,4 @@
 <?php 
-
-$salida = shell_exec('ls ');
+$salida = shell_exec('composer install ');
 echo "<pre>$salida</pre>";
-
 ?>
