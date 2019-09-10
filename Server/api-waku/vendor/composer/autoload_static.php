@@ -380,6 +380,7 @@ class ComposerStaticInit61f013f349004828a5d24db077f31f14
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -390,6 +391,7 @@ class ComposerStaticInit61f013f349004828a5d24db077f31f14
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Notifications\\SignupActivate' => __DIR__ . '/../..' . '/app/Notifications/SignupActivate.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -726,7 +728,6 @@ class ComposerStaticInit61f013f349004828a5d24db077f31f14
         'Faker\\Provider\\it_IT\\Payment' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/it_IT/Payment.php',
         'Faker\\Provider\\it_IT\\Person' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/it_IT/Person.php',
         'Faker\\Provider\\it_IT\\PhoneNumber' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/it_IT/PhoneNumber.php',
-        'Faker\\Provider\\it_IT\\Text' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/it_IT/Text.php',
         'Faker\\Provider\\ja_JP\\Address' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/ja_JP/Address.php',
         'Faker\\Provider\\ja_JP\\Company' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/ja_JP/Company.php',
         'Faker\\Provider\\ja_JP\\Internet' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/ja_JP/Internet.php',
