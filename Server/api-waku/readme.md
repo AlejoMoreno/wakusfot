@@ -7,44 +7,74 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## Sistema de autenticación API rest con Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Tomado de https://medium.com/@cvallejo/sistema-de-autenticación-api-rest-con-laravel-5-6-240be1f3fc7d
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Partir con una instalación fresca y nueva de laravel
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Para ello, entendiendo que ya manejas algo del framework y su documentación (más info: https://laravel.com/docs/5.6) debes escribir en tu ventana de la terminal (asegúrate de estar en la carpeta donde quieres que se genere este nuevo proyecto):
 
-## Learning Laravel
+laravel new apiAuth
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+Puedes escoger el nombre que quieras… en este caso utilizaremos “apiAuth” por ser muy descriptivo ;)
+Recuerda que ahora debes ingresar a tu aplicación y configurar las variables de entorno (.env).
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### 2. Instala el paquete de autenticación API — Passport
 
-## Laravel Sponsors
+Este paquete es fundamental ya que, como su nombre lo indica, Laravel posee un sistema tradicional de autenticación pero, para el caso del desarrollo de una API, Laravel ofrece algo específico. Laravel Passport.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+Las APIs utilizan típicamente tokens para autenticar usuarios pero no para mantener las sesiones entre los requests. Laravel ayuda a que la autenticación a través de la API sea muy simple con Laravel Passport, sistema que provee una implementación total de OAuth2 para tu aplicación de Laravel.
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+Seguiremos los pasos indicados en la documentación oficial (https://laravel.com/docs/5.6/passport)
 
-## Contributing
+### a. Comienza la instalación a través del manejador de paquetes, composer, a través del comando:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+composer require laravel/passport
 
-## Security Vulnerabilities
+### b. Realizar la migración
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+php artisan migrate
+
+### c. Instalación y generación de las llaves
+
+Luego, debes ejecutar el comando passport:install. Este comando creará las llaves de encriptación necesarias para generar los tokens de acceso. Adicionalmente el comando creará el “personal access” y “password grant” de los clientes que se usarán para generar los tokens de acceso:
+
+php artisan passport:install
+
+### d. Configurar Passport
+
+Luego de ejecutar este comando, hay que agregar el trait Laravel\Passport\HasApiTokens al modeloApp\User. Este Trait provee algunos métodos de ayuda a tu modelo que te permitirán inspeccionar al token y scope de los usuarios autenticados. (ver Laravel\Passport\HasApiTokens)
+
+Luego tu deberás llamar al método Passport::routes dentro del método boot en tu app/Providers/AuthServiceProvider. Este método registrará las rutas necesarias para emitir tokens de acceso y revocar tokens de acceso, clientes y tokens de acceso personal ver (app/Providers/AuthServiceProvider)
+
+Para terminar en tu archivo de configuración config/auth.php, tu deberás ajustar la opción del driver de la autenticación de la api en el ‘guards’ a passport. Esto le indicará a tu aplicación que use el TokenGuard de Passport al autenticar las solicitudes API entrantes:
+
+### 3. Creación de las rutas de la API
+
+A continuación lo que se requiere es la creación de las rutas necesarias para tu api. Para ello debes ingresar al servicio de rutas que Laravel provee en forma exclusiva para una apiroutes/api.php
+
+### 4. Creación del controlador para la autenticación
+
+Al visualizar las rutas que hemos generado más arriba podrás notar que se especifica un controlador que aún no hemos creado. Para ello deberemos crear dicho controlador a través del comando:
+
+php artisan make:controller AuthController
+
+Luego, deberemos crear cada uno de los métodos que estamos llamando:
+
+(signup / login / logout / user)
+
+ver (app/Http/AuthController)
+
+Desde este punto en adelante, tu aplicación está plenamente funcional y operativa. Solo necesitas correr tu sitio en el ambiente local que tengas (homestead, valet, single server o cualquier otro entorno). En el caso de un servidor simple o directo, basta con escribir el comando:
+
+## EJEMPLO DE API
+
+[Para la correcta utilización, hay que configurar las siguientes dos cabeceras:]
+
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
+
 
 ## License
 
