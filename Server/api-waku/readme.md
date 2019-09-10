@@ -117,18 +117,18 @@ Cuando se cree una nueva cuenta ésta recibirá un email con el enlace para acti
 
 Hay que agregar la nueva ruta signup/activate/{token} en el archivo routes/api.php.
 
-<?php
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-    Route::get('signup/activate/{token}', 'AuthController@signupActivate');
-  
-    Route::group(['middleware' => 'auth:api'], function () {
-        Route::get('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
+    <?php
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('signup', 'AuthController@signup');
+        Route::get('signup/activate/{token}', 'AuthController@signupActivate');
+    
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('logout', 'AuthController@logout');
+            Route::get('user', 'AuthController@user');
+        });
     });
-});
-?>
+    ?>
 
 ## 5. Confirmar cuenta a usuarios activos
 
